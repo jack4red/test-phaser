@@ -3,7 +3,6 @@
 <head> 
 	<meta charset="UTF-8" />
 	<title>Phaser - Making your first game, part 1</title>
-	<script type="text/javascript" src="js/phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -12,88 +11,11 @@
 </head>
 <body>
 <div id="mygame"></div>
-<script type="text/javascript">
-
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'mygame', { preload: preload, create: create, update: update });
-var score = 0;  
-var scoreText;  
-function preload() {
-	game.load.image('sky', 'assets/sky.png');  
-	game.load.image('ground', 'assets/platform.png');  
-	game.load.image('star', 'assets/star.png');  
-	game.load.spritesheet('dude', 'assets/dude1.png', 32, 32); 
-}
-
-function create() {
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.add.sprite(0, 0, 'sky');
-    platforms = game.add.group();
-    platforms.enableBody = true;
-    var ground = platforms.create(0, game.world.height - 32, 'ground');
-    ground.scale.setTo(10, 2);
-    ground.body.immovable = true;
-    var ledge = platforms.create(150, 500, 'ground');
-    ledge.body.immovable = true;
-    ledge = platforms.create(270, 450, 'ground');
-    ledge.body.immovable = true;  
-
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
-	game.physics.arcade.enable(player);
-	player.body.bounce.y = 0.1;  
-	player.body.gravity.y = 600;  
-	player.body.collideWorldBounds = true;
-	player.animations.add('left', [0], 10, true);  
-	player.animations.add('right', [1], 10, true); 
-
-	stars = game.add.group(); 
-	stars.enableBody = true; 
-	for (var i = 0; i < 4; i++)  
-	{  
-	    var star = stars.create(120 + i * 70, 350, 'star');  
-	    star.body.gravity.y = 6000;  
-	    star.body.bounce.y = 0.7 + Math.random() * 0.2;  
-	    // star.body.collideWorldBounds = true;;  
-	}
-
-	scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });  
-
-	cursors = game.input.keyboard.createCursorKeys();  
-}
-
-function update() {
-	game.physics.arcade.collide(stars, platforms); 
-	game.physics.arcade.collide(player, platforms); 
-	player.body.velocity.x = 0;  
-	if (cursors.left.isDown)  
-	{  
-	    player.body.velocity.x = -150;  
-	    player.animations.play('left');  
-	}  
-	else if (cursors.right.isDown)  
-	{  
-	    player.body.velocity.x = 150;  
-	    player.animations.play('right');  
-	}  
-	else  
-	{  
-	    player.animations.stop();  
-	    // player.frame = 4;  
-	}  
-	  
-	if (cursors.up.isDown && player.body.touching.down)  
-	{  
-	    player.body.velocity.y = -350;  
-	}  
-
-	game.physics.arcade.overlap(player, stars, collectStar, null, this); 
-}
-
-function collectStar(player, star) {
-	star.kill(); 
-	score += 10;  
-    scoreText.text = 'Score: ' + score;   
-}
-</script>
-
+<script type="text/javascript" src="js/phaser.min.js"></script>
+<script type="text/javascript" src="js/load.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/play.js"></script>
+<script type="text/javascript" src="js/gameover.js"></script>
+<script type="text/javascript" src="js/game.js"></script> 
 </body>
 </html>
