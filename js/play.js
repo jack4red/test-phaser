@@ -73,9 +73,7 @@ var play_state = {
         scoreText.text = 'Score: ' + score; 
     },
 	//重新开始函数
-    restart_game: function() {
-        this.game.time.events.remove(this.timer);
-		
+    restart_game: function() {		
         this.game.state.start('gameover');
     }
 };
